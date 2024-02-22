@@ -21,4 +21,6 @@ services:
     environment:
       - TZ=${TZ}
     volumes:
-      - ./conf/privoxy.conf:/etc/privoxy/config:rw
+      - ./conf/privoxy.conf:/etc/privoxy/privoxy.conf:ro
+      - ./conf/tor-rs.sh:/etc/privoxy/tor-rs.sh:ro
+    entrypoint: ["/etc/privoxy/tor-rs.sh"]
