@@ -8,6 +8,8 @@
     - ...
 * Openssl 3.14
 * Gost Engine 3.0.3 с алогоритмами: GOST2012-MAGMA-MAGMAOMAC, GOST2012-KUZNYECHIK-KUZNYECHIKOMAC, LEGACY-GOST2012-GOST8912-GOST8912, IANA-GOST2012-GOST8912-GOST8912, GOST2001-GOST89-GOST89
+
+Образ доступен на [dockerhub](https://hub.docker.com/repository/docker/glogol/squid)
 ## Настройка и компиляция Gost Engine
 ### Сборка
 Устанавливаю необходимые программы для сборки Gost Engine без сохранения кэша и группируя их в виртуальный пакет:
@@ -54,6 +56,10 @@
         dynamic_path = '"${osslengine}"'/gost.so \n \
         default_algorithms = ALL \
         ' ${ossldir}/openssl.cnf 
+
+Проверяю что всё работает
+
+    # openssl ciphers|tr ':' '\n'|grep GOST
 
 ### Чистка
 Удаляю все необходимые программы и библиотеки для сборки и скачанные файлы репозитория Gost-Engine, а также переменные окружения.
