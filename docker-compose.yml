@@ -7,8 +7,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-    networks:
-      dynamic: {}
     configs:
       - source: torrc
         target: /etc/tor/torrc.example
@@ -44,10 +42,6 @@ services:
     hostname: haproxy
     deploy:
       mode: global
-    networks:
-      dynamic: {}
-      static:
-        ipv4_address: 10.0.101.5
     configs:
       - source: haproxy
         target: /etc/haproxy/haproxy.cfg
@@ -61,9 +55,6 @@ services:
       TZ: Europe/Moscow
     deploy:
       mode: global
-    networks:      
-      static:
-        ipv4_address: 10.0.101.4
     depends_on:
       - haproxy
     ports:
@@ -86,15 +77,10 @@ services:
       uid: "0"
       gid: "0"
       mode: 0644
-networks:
-  static:
-    driver: overlay
-    ipam:
-      driver: default
-      config: 
-        - subnet: 10.0.101.0/24
-  dynamic:
-    driver: overlay
+    volumes:
+    - type: bind
+      source: ./squid/ru-ru
+      target: /usr/share/squid/errors/ru-ru
 configs:
   torrc:
     file: ./tor/torrc
