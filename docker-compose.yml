@@ -1,26 +1,112 @@
-version: "3.5"
+#
+# Proxy server for CNPPM employees
+#
 services:
+  tor:
+    image: glogol/tor-privoxy:latest
+    deploy:
+      mode: replicated
+      replicas: 2
+    networks:
+      dynamic: {}
+    configs:
+      - source: torrc
+        target: /etc/tor/torrc.example
+        uid: "101"
+        gid: "102"
+        mode: 0400
+      - source: obfsList
+        target: /etc/tor/torList
+        uid: "101"
+        gid: "102"
+        mode: 0400
+      - source: privoxy
+        target: /etc/privoxy/config
+        uid: "100"
+        gid: "101"
+        mode: 0660
+      - source: bridgeSelection
+        target: /etc/tor/bst.sh
+        uid: "101"
+        gid: "102"
+        mode: 0400
+    environment:
+      BRIDGES_COUNT: 3
+    command: ["sh", "-c", "sh /etc/tor/bst.sh && /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf"]
+    healthcheck:
+      test: ["CMD", "curl", "--socks5-hostname", "127.0.0.1:9050", "-fsS", "--connect-timeout", "10", "https://check.torproject.org/"]
+      interval: 30s
+      timeout: 15s
+      retries: 2
+      start_period: 90s
+  haproxy:
+    image: glogol/haproxy:latest
+    hostname: haproxy
+    deploy:
+      mode: global
+    networks:
+      dynamic: {}
+      static:
+        ipv4_address: 10.0.101.5
+    configs:
+      - source: haproxy
+        target: /etc/haproxy/haproxy.cfg
+        uid: "99"
+        gid: "99"
+        mode: 0400
   squid:
-    build: ./squid
-    restart: unless-stopped
+    image: glogol/squid:latest 
+    hostname: squid
     environment:
-      - TZ=${TZ}
-      - RC=${RC}
-  tor: 
-    build: ./tor
-    restart: unless-stopped
+      TZ: Europe/Moscow
     deploy:
-      replicas: ${RC}
-    environment:
-      - TZ=${TZ}
-  privoxy: 
-    build: ./privoxy
-    restart: unless-stopped
-    deploy:
-      replicas: ${RC}
-    environment:
-      - TZ=${TZ}
-    volumes:
-      - ./conf/privoxy.conf:/etc/privoxy/privoxy.conf:ro
-      - ./conf/tor-rs.sh:/etc/privoxy/tor-rs.sh:ro
-    entrypoint: ["/etc/privoxy/tor-rs.sh"]
+      mode: global
+    networks:      
+      static:
+        ipv4_address: 10.0.101.4
+    depends_on:
+      - haproxy
+    ports:
+    - target: 3128
+      published: 31289
+      protocol: tcp
+      mode: ingress
+    - target: 3128
+      published: 31289
+      protocol: udp
+      mode: ingress
+    configs: 
+    - source: squid
+      target: /etc/squid/squid.conf
+      uid: "0"
+      gid: "0"
+      mode: 0644
+    - source: proxylist
+      target: /etc/squid/tor-acl
+      uid: "0"
+      gid: "0"
+      mode: 0644
+networks:
+  static:
+    driver: overlay
+    ipam:
+      driver: default
+      config: 
+        - subnet: 10.0.101.0/24
+  dynamic:
+    driver: overlay
+configs:
+  torrc:
+    file: ./tor/torrc
+  obfsList:
+    file: ./.bridges
+  privoxy:
+    file: ./tor/privoxy
+  bridgeSelection:
+    file: ./tor/bst.sh
+  haproxy:
+    file: ./haproxy/config
+  squid:
+    file: ./squid/squid.conf
+  proxylist:
+    file: ./squid/tor-acl

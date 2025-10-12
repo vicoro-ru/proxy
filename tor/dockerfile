@@ -1,0 +1,9 @@
+FROM alpine:latest
+LABEL maintainer="alisterosenheim@outlook.com"
+RUN apk --no-cache add tor lyrebird curl supervisor privoxy
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+RUN cp /etc/tor/torrc.sample /etc/tor/torrc
+RUN find /etc/privoxy -name '*.new' -exec sh -c 'cp "$0" "${0%.new}"' {} \; \
+	&& chown -R privoxy:privoxy /etc/privoxy \
+	&& chmod 660 /etc/privoxy/*
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]

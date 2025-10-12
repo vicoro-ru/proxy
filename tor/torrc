@@ -1,0 +1,16 @@
+DataDirectory /var/lib/tor
+# Использование мостов как посредников между сетью тор и нами
+UseBridges 1
+# Какие плагины можем использовать для общения между нами и посредниками
+ClientTransportPlugin meek_lite,obfs2,obfs3,obfs4,scramblesuit,snowflake,webtunnel exec /usr/bin/lyrebird
+# Порт для использования локальным приложением и https запросов
+# HTTPTunnelPort localhost:9051
+# Сокет пор для Privoxy и тестирования
+SocksPort localhost:9050
+# Какие страны следует избегать как шлюзы выхода (только следует)
+ExcludeExitNodes {RU},{BY},{UA}
+# Заставить 100% избегать страны выше как шлюзы
+StrictNodes 1
+# Как часто менять выходной узел (В данном случае раз в час, число в секундах)
+# MaxCircuitDirtiness 3600
+# Используемые мосты как посредники между мной и сетью ТОР

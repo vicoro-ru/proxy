@@ -1,0 +1,4 @@
+FROM alpine:latest
+LABEL maintainer="alisterosenheim@outlook.com"
+RUN apk --no-cache add haproxy
+CMD ["/usr/sbin/haproxy", "-f", "/etc/haproxy/haproxy.cfg", "-db", "-V"]
