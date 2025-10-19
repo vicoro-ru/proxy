@@ -1,12 +1,15 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
     <meta type="copyright" content="Copyright (C) 1996-2023 The Squid Software Foundation and contributors">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>ОШИБКА: Запрошенный URL не может быть получен</title>
     <base target="_parent" />
+    
     <style>
-            html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,p,blockquote,fieldset,input,abbr,article,aside,command,details,figcaption,figure,footer,header,hgroup,mark,meter,nav,output,progress,section,summary,time {
+        %l
+
+        html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,p,blockquote,fieldset,input,abbr,article,aside,command,details,figcaption,figure,footer,header,hgroup,mark,meter,nav,output,progress,section,summary,time {
             margin: 0px;
             padding: 0px;
         }
@@ -161,14 +164,8 @@
             color: #959595;
         }
     </style>
-    <script>
-        const err = "%E";
-        const box = document.querySelector(".box");
-        console.log(err)
-        console.log(box)
-    </script>
 </head id="%c">
-<body>
+<body id="%c">
     <div id="page">
         <div id="main">
             <div id="top">
@@ -180,6 +177,7 @@
                 </div>
                 <div class="border_bottom"></div>
             </div>
+            <script src="add-content.js"></script>
             <div id="bottom" class="clear">
                 <a class="item" href="https://viro35.ru/">
                     <div class="img_item portal"></div>
@@ -228,37 +226,8 @@
             </div>
             <div id="bottom" class="date">
                 <p>Создано %T на %h (%s)</p>
-                <p>Переменные: %E</p>
             </div>
         </div>
     </div>
 </body>
 </html>
-<!--
-%a - ip адресс клиента
-%A - ip адресс сервера
-%B - размер http ответа в байтах
-%c - код кэш-ответа squid
-%d - имя каталога откуда взят шаблон ошибки
-%e - текст ошибки или причина (Connection refused)
-$E - омя шаблона ошибки (ERR_ACCESS_DENIED)
-%f - имя пользователя если включена аутентификация
-%g - группа пользователя если аутентификация есть
-%H - запрашиваемый сайт (хост)
-%h - имя сервера на котором работает squid
-%i - исходящий ip адресс для squid
-%I - имя исходящего интерфейса
-%l - FQDN клиента (полное имя)
-%M - Сообщение об ошибке (Access Denied)
-%m - метод HTTP-запроса (get, post, connect)
-%p - порт обращения клиента
-%P - какое было соединение http или https
-%R - заголовки HTTP запроса
-%r - ничего
-%s - версия squid
-%T - время в формате (Sat, 11 oct 2025 21:03:51 GMT)
-%t - время в формате (12/Oct/2025:00:03:51 +0300)
-%U - запрашиваемый пользователем URL
-%u %w - тоже имя пользователя
-%z - днс сообщение
--->
