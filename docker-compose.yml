@@ -6,7 +6,7 @@ services:
     image: glogol/tor-privoxy:latest
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 5
     configs:
       - source: torrc
         target: /etc/tor/torrc.example
@@ -61,11 +61,11 @@ services:
     - target: 3128
       published: 31289
       protocol: tcp
-      mode: ingress
+      mode: host
     - target: 3128
       published: 31289
       protocol: udp
-      mode: ingress
+      mode: host
     configs: 
     - source: squid
       target: /etc/squid/squid.conf
