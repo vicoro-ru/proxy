@@ -18,7 +18,8 @@ frontend privoxy_in
     default_backend tor_privoxy_pool
 
 backend tor_privoxy_pool
-    balance roundrobin
+    mode tcp
+    balance source
     option httpchk GET http://check.torproject.org/
     http-check send hdr Host check.torproject.org
     server-template proxy 50 tasks.tor:8118 check resolvers docker init-addr none

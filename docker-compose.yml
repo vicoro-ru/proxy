@@ -29,7 +29,7 @@ services:
         gid: "102"
         mode: 0400
     environment:
-      BRIDGES_COUNT: 3
+      BRIDGES_COUNT: 2
     command: ["sh", "-c", "sh /etc/tor/bst.sh && /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf"]
     healthcheck:
       test: ["CMD", "curl", "--socks5-hostname", "127.0.0.1:9050", "-fsS", "--connect-timeout", "10", "https://check.torproject.org/"]
@@ -49,14 +49,15 @@ services:
         gid: "99"
         mode: 0400
   squid:
-    image: glogol/squid:latest 
+    image: glogol/squid:latest
+    dns:
+      - 172.16.10.2
+      - 172.16.10.3
     hostname: squid
     environment:
       TZ: Europe/Moscow
     deploy:
       mode: global
-    depends_on:
-      - haproxy
     ports:
     - target: 3128
       published: 31288
@@ -77,6 +78,10 @@ services:
       uid: "0"
       gid: "0"
       mode: 0644
+    - source: non-prohibited
+      target: /etc/squid/non-prohibited
+      uid: "0"
+      gid: "0"
     volumes:
     - type: bind
       source: ./squid/ru-ru
@@ -96,3 +101,5 @@ configs:
     file: ./squid/squid.conf
   proxylist:
     file: ./squid/tor-acl
+  non-prohibited:
+    file: ./squid/non-prohibited
