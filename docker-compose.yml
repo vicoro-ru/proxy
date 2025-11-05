@@ -82,6 +82,10 @@ services:
       target: /etc/squid/non-prohibited
       uid: "0"
       gid: "0"
+    - source: eventslist
+      target: /etc/squid/events
+      uid: "0"
+      gid: "0"
     volumes:
     - type: bind
       source: ./squid/ru-ru
@@ -103,3 +107,5 @@ configs:
     file: ./squid/tor-acl
   non-prohibited:
     file: ./squid/non-prohibited
+  eventslist:
+    file: ./squid/events
