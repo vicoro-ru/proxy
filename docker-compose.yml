@@ -73,19 +73,16 @@ services:
       uid: "0"
       gid: "0"
       mode: 0644
-    - source: proxylist
-      target: /etc/squid/tor-acl
+    - source: outside_law
+      target: /etc/squid/outside_law
       uid: "0"
       gid: "0"
       mode: 0644
-    - source: non-prohibited
-      target: /etc/squid/non-prohibited
+    - source: within_law
+      target: /etc/squid/within_law
       uid: "0"
       gid: "0"
-    - source: eventslist
-      target: /etc/squid/events
-      uid: "0"
-      gid: "0"
+      mode: 0644
     volumes:
     - type: bind
       source: ./squid/ru-ru
@@ -103,9 +100,7 @@ configs:
     file: ./haproxy/config
   squid:
     file: ./squid/squid.conf
-  proxylist:
-    file: ./squid/tor-acl
-  non-prohibited:
-    file: ./squid/non-prohibited
-  eventslist:
-    file: ./squid/events
+  outside_law:
+    file: ./squid/outside_law
+  within_law:
+    file: ./squid/within_law
