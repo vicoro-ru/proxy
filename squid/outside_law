@@ -2,19 +2,6 @@
 .rutracker.org
 .rutracker.cc
 .rutrk.org
-# Google: Play, YouTube
-.youtube.com
-.googlevideo.com
-.ytimg.com
-.yt3.ggpht.com
-.googleapis.com
-.googleusercontent.com
-.googleadservices.com
-.googlesyndication.com
-.play.google.com
-.doubleclick.net
-.fonts.gstatic.com
-.gvt1.com
 # NNMClub
 .nnmclub.to
 .nnmstatic.win
@@ -49,51 +36,8 @@
 .onion
 # VPN: Amnezia,
 .amnezia.org
-# Banned Russia
-.intel.com
 # Anime
 .anilibria.tv
-# Other
-## Chech IP
-.iplocation.net
-.torguard.net
-.tgoagenesis.com
-.t.co
-# Chatgpt
-.chatgpt.com
-.chat.openai.com
-.auth0.com
-cdn.jsdelivr.net
-cdn.oaistatic.com
-platform.openai.com
-api.openai.com
-auth.openai.com
-openai.com
-openaiapi-site.azureedge.net
-oaiusercontent.com
-oaistatic.com
-events.statsigapi.net
-status.openai.com
-turn.openai.com
-copilot.microsoft.com
-## KB isc.org
-.kb.isc.org
-.cdn.document360.io
 ## Blog
 .medium.com
 .cloudflareinsights.com
-## WhatsApp
-web.whatsapp.com
-static.whatsapp.net
-graph.whatsapp.net
-.cdn.whatsapp.net
-## Telegramm
-t.me
-telegram.me
-web.telegram.org
-## Speedtest
-.speedtest.net
-.rubiconproject.com
-.id5-sync.com
-.tapad.com
-.presage.io

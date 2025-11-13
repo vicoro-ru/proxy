@@ -6,7 +6,7 @@ services:
     image: glogol/tor-privoxy:latest
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 3
     configs:
       - source: torrc
         target: /etc/tor/torrc.example
