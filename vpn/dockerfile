@@ -1,13 +1,7 @@
 FROM alpine:3.22.2
 LABEL maintainer="alisterosenheim@outlook.com"
-RUN apk --no-cache add tzdata curl squid squid-lang-ru && \
-    mkdir -p /var/cache/squid /var/log/squid /run/squid && \
-    chown -R squid:squid /var/cache/squid /var/log/squid /run/squid && \
-    rm -rf /var/cache/apk/*
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh 
-RUN chmod +x /usr/local/bin/entrypoint.sh
-WORKDIR /etc/squid
-EXPOSE 3128/tcp
-EXPOSE 3128/udp
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["-f", "/etc/squid/squid.conf", "-NYC"]
+RUN apk --no-cache add strongswan
+WORKDIR /etc
+EXPOSE 500/UDP 4500/UDP
+ENTRYPOINT ["/usr/sbin/ipsec"]
+CMD ["start", "--nofork"]
