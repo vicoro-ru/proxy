@@ -30,10 +30,9 @@ status.openai.com
 turn.openai.com
 copilot.microsoft.com
 ## WhatsApp
-web.whatsapp.com
-static.whatsapp.net
-graph.whatsapp.net
-.cdn.whatsapp.net
+.whatsapp.com
+.whatsapp.net
+.fbcdn.net
 ## Telegramm
 t.me
 telegram.me
@@ -76,3 +75,13 @@ web.telegram.org
 .goethe.de
 .linkedin.com
 .script.hotjar.com/
+# Arduino
+.arduino.cc
+.iubenda.com
+.profitwell.com
+# Deepseek
+.deepseek.com
+.volces.com
+.volccdn.com
+.portal101.cn
+
