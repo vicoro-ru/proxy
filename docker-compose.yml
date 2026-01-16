@@ -1,12 +1,12 @@
 #
-# Proxy server for CNPPM employees
+# Proxy server
 #
 services:
   tor:
     image: glogol/tor-privoxy:latest
     deploy:
       mode: replicated
-      replicas: 8
+      replicas: 1
     configs:
       - source: torrc
         target: /etc/tor/torrc.example
@@ -48,6 +48,26 @@ services:
         uid: "99"
         gid: "99"
         mode: 0400
+  vpn:
+    image: glogol/strongswan:latest
+    hostname: vpn
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - target: 500
+        published: 500
+        protocol: udp
+        mode: host
+      - target: 4500
+        published: 4500
+        protocol: udp
+        mode: host
+    configs:
+      - source: vpn
+        target: /etc/ipsec.conf
+        uid: "0"
+        gid: "0"
+        mode: 6440
   squid:
     image: glogol/squid:latest
     dns:
@@ -98,6 +118,8 @@ configs:
     file: ./tor/bst.sh
   haproxy:
     file: ./haproxy/config
+  vpn:
+    file: ./vpn/ipsec.conf
   squid:
     file: ./squid/squid.conf
   outside_law:
