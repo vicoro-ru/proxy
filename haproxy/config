@@ -7,7 +7,7 @@ defaults
     option  httplog
     option  dontlognull
     option  log-health-checks
-    timeout connect 5s
+    timeout connect 10s
     timeout client  50s
     timeout server  50s
 

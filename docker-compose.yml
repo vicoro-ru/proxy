@@ -6,7 +6,7 @@ services:
     image: glogol/tor-privoxy:latest
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 4
     configs:
       - source: torrc
         target: /etc/tor/torrc.example
@@ -14,7 +14,12 @@ services:
         gid: "102"
         mode: 0400
       - source: obfsList
-        target: /etc/tor/torList
+        target: /etc/tor/obfs4.list
+        uid: "101"
+        gid: "102"
+        mode: 0400
+      - source: webtunelList
+        target: /etc/tor/webtunnel.list
         uid: "101"
         gid: "102"
         mode: 0400
@@ -27,15 +32,16 @@ services:
         target: /etc/tor/bst.sh
         uid: "101"
         gid: "102"
+        #Поправить потом на 0400
         mode: 0400
     environment:
       BRIDGES_COUNT: 2
     command: ["sh", "-c", "sh /etc/tor/bst.sh && /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf"]
     healthcheck:
       test: ["CMD", "curl", "--socks5-hostname", "127.0.0.1:9050", "-fsS", "--connect-timeout", "10", "https://check.torproject.org/"]
-      interval: 30s
+      interval: 60s
       timeout: 15s
-      retries: 2
+      retries: 3
       start_period: 90s
   haproxy:
     image: glogol/haproxy:latest
@@ -111,7 +117,9 @@ configs:
   torrc:
     file: ./tor/torrc
   obfsList:
-    file: ./.bridges
+    file: ./.obfs4
+  webtunelList:
+    file: ./.webtunel
   privoxy:
     file: ./tor/privoxy
   bridgeSelection:
