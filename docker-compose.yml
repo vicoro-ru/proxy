@@ -46,8 +46,6 @@ services:
   haproxy:
     image: glogol/haproxy:latest
     hostname: haproxy
-    deploy:
-      mode: global
     configs:
       - source: haproxy
         target: /etc/haproxy/haproxy.cfg
