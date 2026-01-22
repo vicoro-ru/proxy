@@ -1,15 +1,13 @@
 global
     log stdout format raw local0
-    maxconn 4096
+    maxconn 8192
 
 defaults
-    log     global
-    option  httplog
-    option  dontlognull
-    option  log-health-checks
-    timeout connect 10s
-    timeout client  50s
-    timeout server  50s
+    log global
+    option tcplog
+    timeout connect 30s
+    timeout client  5m
+    timeout server  5m
 
 frontend privoxy_in
     bind *:8118
@@ -20,8 +18,9 @@ frontend privoxy_in
 backend tor_privoxy_pool
     mode tcp
     balance source
-    option httpchk GET http://check.torproject.org/
-    http-check send hdr Host check.torproject.org
+    option tcp-check
+    option tcp-smart-connect
+    tcp-check connect
     server-template proxy 50 tasks.tor:8118 check resolvers docker init-addr none
     resolvers docker
         parse-resolv-conf

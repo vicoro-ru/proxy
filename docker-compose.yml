@@ -93,26 +93,20 @@ services:
       published: 31288
       protocol: udp
       mode: host
-    configs: 
-    - source: squid
-      target: /etc/squid/squid.conf
-      uid: "0"
-      gid: "0"
-      mode: 0644
-    - source: outside_law
-      target: /etc/squid/outside_law
-      uid: "0"
-      gid: "0"
-      mode: 0644
-    - source: within_law
-      target: /etc/squid/within_law
-      uid: "0"
-      gid: "0"
-      mode: 0644
     volumes:
+    - type: bind
+      source: ./squid/squid.conf
+      target: /etc/squid/squid.conf
+    - type: bind
+      source: ./squid/outside_law
+      target: /etc/squid/outside_law
+    - type: bind
+      source: ./squid/within_law
+      target: /etc/squid/within_law
     - type: bind
       source: ./squid/ru-ru
       target: /usr/share/squid/errors/ru-ru
+
 configs:
   torrc:
     file: ./tor/torrc
@@ -128,9 +122,3 @@ configs:
     file: ./haproxy/config
   vpn:
     file: ./vpn/ipsec.conf
-  squid:
-    file: ./squid/squid.conf
-  outside_law:
-    file: ./squid/outside_law
-  within_law:
-    file: ./squid/within_law

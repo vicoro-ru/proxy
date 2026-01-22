@@ -1,33 +1,29 @@
-# Google: Play, YouTube
+# Google: Видео и Магазин
 .youtube.com
 .googlevideo.com
 .ytimg.com
-.yt3.ggpht.com
-.googleapis.com
-.googleusercontent.com
-.googleadservices.com
-.googlesyndication.com
 .play.google.com
-.doubleclick.net
-.fonts.gstatic.com
 .gvt1.com
-.googletagservices.com
+.googleusercontent.com
+.googleapis.com
+.gstatic.com
+.nhacqc.com
+.ggpht.com
+.youtube-nocookie.com
+# Рекламные домены Google
+.doubleclick.net
+.googlesyndication.com
+.googleadservices.com
 # Chatgpt
+.openai.com
 .chatgpt.com
-.chat.openai.com
 .auth0.com
 cdn.jsdelivr.net
 cdn.oaistatic.com
-platform.openai.com
-api.openai.com
-auth.openai.com
-openai.com
 openaiapi-site.azureedge.net
 oaiusercontent.com
 oaistatic.com
 events.statsigapi.net
-status.openai.com
-turn.openai.com
 copilot.microsoft.com
 ## WhatsApp
 .whatsapp.com
@@ -66,7 +62,6 @@ copilot.microsoft.com
 .ndi.video
 .clarity.ms
 ## Russiafood
-.doubleclick.net
 .russianfood.com
 ## Polar
 .polar.com
@@ -74,7 +69,7 @@ copilot.microsoft.com
 ## Gaethe
 .goethe.de
 .linkedin.com
-.script.hotjar.com/
+.script.hotjar.com
 # Arduino
 .arduino.cc
 .iubenda.com
@@ -86,12 +81,24 @@ copilot.microsoft.com
 .portal101.cn
 .awswaf.com
 .hcaptcha.com
-.gator.volces.com
 .openway.deepseeksvc.com
 # Microsoft Teams
 statics.teams.cdn.office.net
+statics.teams.cdn.live.net
 # Z100 NewYork
-i.iheart.com
-z100.iheart.com
-api.iheart.com
-webapi.radiodit.iheart.com
+.us.api.iheart.com
+.adswizz.com
+.cookielaw.org
+.geolocation.onetrust.com
+.ihrhls.com
+.iheartmedia.com
+# Cloudflare
+.cloudflare.com
+.cloudflare.net
+#.cloudflarestorage.com
+# Docker Hub
+.docker.io
+.docker.com
+.dockerusercontent.com
+.dockercloud.com
+.dockerstatic.com

@@ -11,6 +11,8 @@ SocksPort localhost:9050
 ExcludeExitNodes {RU},{BY},{UA}
 # Заставить 100% избегать страны выше как шлюзы
 StrictNodes 1
+# Если мост не отвечает, Tor пометит его как нерабочий и переключится на другой быстрее
+LearnCircuitBuildTimeout 0
 # Логи
 # Как часто менять выходной узел (В данном случае раз в час, число в секундах)
 # MaxCircuitDirtiness 3600
