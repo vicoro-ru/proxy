@@ -95,7 +95,7 @@ statics.teams.cdn.live.net
 # Cloudflare
 .cloudflare.com
 .cloudflare.net
-#.cloudflarestorage.com
+.cloudflarestorage.com
 # Docker Hub
 .docker.io
 .docker.com
