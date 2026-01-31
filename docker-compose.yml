@@ -32,7 +32,6 @@ services:
         target: /etc/tor/bst.sh
         uid: "101"
         gid: "102"
-        #Поправить потом на 0400
         mode: 0400
     environment:
       BRIDGES_COUNT: 2
@@ -48,7 +47,10 @@ services:
     deploy:
       replicas: 1
       restart_policy:
-        condition: none
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
     hostname: haproxy
     configs:
       - source: haproxy
@@ -56,6 +58,27 @@ services:
         uid: "99"
         gid: "99"
         mode: 0400
+  envoy:
+    image: envoyproxy/envoy:distroless-v1.37-latest
+    hostname: envoy
+    ports:
+      - target: 15001
+        published: 15001
+        protocol: tcp
+        mode: host
+      - target: 15001
+        published: 15001
+        protocol: udp
+        mode: host
+    deploy:
+      mode: global
+    configs:
+      - source: envoy
+        target: /etc/envoy/envoy.yaml
+        uid: "65532"
+        gid: "65532"
+        mode: 644
+    command: ["/usr/local/bin/envoy", "-c", "/etc/envoy/envoy.yaml"]
   vpn:
     image: glogol/strongswan:latest
     hostname: vpn
@@ -122,5 +145,7 @@ configs:
     file: ./tor/bst.sh
   haproxy:
     file: ./haproxy/config
+  envoy:
+    file: ./envoy/envoy.yaml
   vpn:
     file: ./vpn/ipsec.conf
