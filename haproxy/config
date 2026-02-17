@@ -5,9 +5,11 @@ global
 defaults
     log global
     option tcplog
-    timeout connect 30s
+    timeout connect 5s
     timeout client  5m
     timeout server  5m
+    retries 2
+    option redispatch
 
 frontend privoxy_in
     bind *:8118
@@ -21,7 +23,7 @@ backend tor_privoxy_pool
     option tcp-check
     option tcp-smart-connect
     tcp-check connect
-    server-template proxy 50 tasks.tor:8118 check resolvers docker init-addr none
+    server-template proxy 50 tasks.tor:8118 check resolvers docker init-addr none maxconn 35
     resolvers docker
         parse-resolv-conf
         hold valid 10s

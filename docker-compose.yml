@@ -6,7 +6,7 @@ services:
     image: glogol/tor-privoxy:latest
     deploy:
       mode: replicated
-      replicas: 4
+      replicas: 2
     configs:
       - source: torrc
         target: /etc/tor/torrc.example
@@ -60,6 +60,9 @@ services:
         mode: 0400
   envoy:
     image: envoyproxy/envoy:distroless-v1.37-latest
+    dns:
+      - 172.16.10.2
+      - 172.16.10.3
     hostname: envoy
     ports:
       - target: 15001
@@ -74,11 +77,11 @@ services:
       mode: global
     configs:
       - source: envoy
-        target: /etc/envoy/envoy.yaml
+        target: /etc/envoy.yaml
         uid: "65532"
         gid: "65532"
-        mode: 644
-    command: ["/usr/local/bin/envoy", "-c", "/etc/envoy/envoy.yaml"]
+        mode: 444
+    command: ["-c", "/etc/envoy.yaml"]
   vpn:
     image: glogol/strongswan:latest
     hostname: vpn
@@ -128,6 +131,9 @@ services:
     - type: bind
       source: ./squid/within_law
       target: /etc/squid/within_law
+    - type: bind
+      source: ./squid/within_law_ip
+      target: /etc/squid/within_law_ip
     - type: bind
       source: ./squid/ru-ru
       target: /usr/share/squid/errors/ru-ru
