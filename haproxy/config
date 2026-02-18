@@ -6,18 +6,19 @@ defaults
     log global
     option tcplog
     timeout connect 5s
-    timeout client  5m
-    timeout server  5m
+    timeout client  1h
+    timeout server  1h
     retries 2
     option redispatch
+    option abortonclose
 
 frontend privoxy_in
     bind *:8118
     mode tcp
     option tcplog
-    default_backend tor_privoxy_pool
+    default_backend privoxy_pool
 
-backend tor_privoxy_pool
+backend privoxy_pool
     mode tcp
     balance source
     option tcp-check
