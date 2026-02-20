@@ -5,9 +5,9 @@ global
 defaults
     log global
     option tcplog
-    timeout connect 5s
-    timeout client  1h
-    timeout server  1h
+    timeout connect 10s
+    timeout client  2h
+    timeout server  2h
     retries 2
     option redispatch
     option abortonclose
@@ -24,7 +24,7 @@ backend privoxy_pool
     option tcp-check
     option tcp-smart-connect
     tcp-check connect
-    server-template proxy 50 tasks.tor:8118 check resolvers docker init-addr none maxconn 35
+    server-template proxy 50 tasks.tor:8118 check resolvers docker init-addr none maxconn 75
     resolvers docker
         parse-resolv-conf
         hold valid 10s
