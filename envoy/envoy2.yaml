@@ -91,3 +91,18 @@ static_resources:
 admin:
   address:
     socket_address: { address: 0.0.0.0, port_value: 9901 }
+
+  # # 2. Резервный шлюз (имя в Docker-сети)
+  # - name: backup_proxy
+  #   connect_timeout: 2s
+  #   type: STRICT_DNS
+  #   lb_policy: ROUND_ROBIN
+  #   load_assignment:
+  #     cluster_name: backup_proxy
+  #     endpoints:
+  #       - lb_endpoints:
+  #           - endpoint:
+  #               address:
+  #                 socket_address:
+  #                   address: proxy # Имя контейнера в докере
+  #                   port_value: 1080

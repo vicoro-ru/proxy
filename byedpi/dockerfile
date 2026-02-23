@@ -1,0 +1,5 @@
+FROM alpine:latest
+LABEL maintainer="alisterosenheim@outlook.com"
+COPY ciadpi-x86_64 /usr/local/bin/ciadpi
+RUN chmod +x /usr/local/bin/ciadpi
+CMD ["/usr/local/bin/ciadpi", "-i", "0.0.0.0", "-x", "2"]
