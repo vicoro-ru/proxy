@@ -35,3 +35,6 @@ ciadpi -i 0.0.0.0 -p 1080 -d1 -d3+s -s6+s -d9+s -s12+s -d15+s -s20+s -d25+s -s30
     ByeDPI ciadpi auto-strategy linux
 
     PS C:\Users\alist\Documents\proxy\byedpi> docker run -it --rm --name my-byedpi --dns 172.16.10.2 --dns 172.16.10.3 -p 1080:1080 byedpi /usr/local/bin/ciadpi -I 0.0.0.0 -p 1080 -d1 -d3+s -s6+s -d9+s -s12+s -d15+s -s20+s -d25+s -s30+s -d35+s -r1+s -S -a1 -As
+
+    curl -vkI --socks5-hostname 127.0.0.1:1080 https://googlevideo.com
+curl -vkI --socks5 127.0.0.1:1080 --dns-servers 172.16.10.2 https://googlevideo.com
